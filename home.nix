@@ -23,6 +23,7 @@
       enable = true;
       sessionVariables = {
         EDITOR = "nvim";
+        TERM = "xterm-256color";
       };
     };
     git = {
