@@ -55,7 +55,7 @@ require'nvim-treesitter.configs'.setup {
 vim.opt.runtimepath:append("~/.config/nvim/treesitter/parsers")
 
 require'lualine'.setup()
-require'nvim-tree'.setup()
+--require'nvim-tree'.setup()
 require('gitsigns').setup()
 require('toggleterm').setup()
 
