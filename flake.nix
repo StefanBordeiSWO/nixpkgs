@@ -10,7 +10,7 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
   outputs =
-    { self, home-manager, nixpkgs,flake-utils, nur, ... }:
+    { self, home-manager, nixpkgs, flake-utils, nur, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -22,7 +22,7 @@
         };
       };
     in {
-      homeConfigurations.nixos = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.stefanB = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         modules = [
@@ -32,7 +32,7 @@
         ];
       };
 
-      nixos = self.homeConfigurations.nixos.activationPackage;
-      defaultPackage.${system} = self.nixos;
+      stefanB = self.homeConfigurations.stefanB.activationPackage;
+      defaultPackage.${system} = self.stefanB;
     };
 }

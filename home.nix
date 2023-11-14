@@ -1,8 +1,8 @@
 { config, pkgs, nur, ... }: {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "nixos";
-  home.homeDirectory = "/home/nixos";
+  home.username = "stefanB";
+  home.homeDirectory = "/home/stefanB";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -18,7 +18,7 @@
     home-manager.enable = true;
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
-    powerline-go.enable = true;
+    #powerline-go.enable = true;
     bash = {
       enable = true;
       sessionVariables = {

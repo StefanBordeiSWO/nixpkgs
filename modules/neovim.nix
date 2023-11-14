@@ -39,6 +39,12 @@ in
         { plugin = plenary-nvim; }
         { plugin = vim-tmux-navigator; }
         #{ plugin = packer-nvim; }
+        # Debug
+        { plugin = nvim-dap; }
+        { plugin = nvim-dap-ui; }
+        { plugin = nvim-dap-virtual-text; }
+        { plugin = nvim-dap-python; }
+        { plugin = nvim-dap-go; }
       ];
     }; # neovim
     xdg.configFile."nvim/lua".source = config.lib.file.mkOutOfStoreSymlink "${nixConfigDir}/configs/nvim/lua";
