@@ -3,7 +3,7 @@ let
 in {
   home.packages = with pkgs; [
     # utilities
-    (python3.withPackages(p: with p; [ pip python-lsp-server requests numpy ]))
+    (python3.withPackages(p: with p; [ pip python-lsp-server debugpy ruff-lsp requests numpy ]))
     htop
     glib # for gsettings
     gsimplecal
@@ -36,6 +36,9 @@ in {
     nodePackages.pyright
     rust-analyzer
     gopls
+
+    # linters
+    ruff
 
     # telescope deps
     ripgrep

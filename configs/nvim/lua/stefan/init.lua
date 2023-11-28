@@ -3,13 +3,20 @@ require("stefan.remap")
 --require("stefan.packer")
 
 
-local augroup = vim.api.nvim_create_augroup
-local stefanGroup = augroup('stefan', {})
-local autocmd = vim.api.nvim_create_autocmd
-autocmd({"BufWritePre"}, {
-    group = stefanGroup,
-    pattern = "*",
-    command = [[%s/\s\+$//e]],
+-- local augroup = vim.api.nvim_create_augroup
+-- local stefanGroup = augroup('stefan', {})
+-- local autocmd = vim.api.nvim_create_autocmd
+-- autocmd({"BufWritePre"}, {
+--     group = stefanGroup,
+--     pattern = "*",
+--     command = [[%s/\s\+$//e]],
+-- })
+
+local group = vim.api.nvim_create_augroup("ruff", { clear = true })
+vim.api.nvim_create_autocmd("bufWritePost", {
+	pattern = "*.py",
+	command = "silent !ruff format %",
+	group = group,
 })
 
 -- nvim-tree setup
