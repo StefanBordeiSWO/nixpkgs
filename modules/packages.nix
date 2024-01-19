@@ -16,17 +16,26 @@ in {
     xarchiver
     xdg-utils
     zenmonitor
-    obsidian
-    nitrogen
+    unzip
+    iconv
+    file
     gnumake
+    pyenv
+
+    # Azure
+    azure-cli
+    ansible
+
+    # k8s
+    kubectl
 
     # Rust
     rustc
     cargo
 
     # testing
-    vagrant
-    virtualbox
+    #vagrant
+    #virtualbox
 
     # lsp
     clang
@@ -44,10 +53,10 @@ in {
     ripgrep
 
     # password management
-    lxqt.lxqt-sudo
-    lxqt.lxqt-policykit
+    #lxqt.lxqt-sudo
+    #lxqt.lxqt-policykit
 
     # nix-dev
-    nixpkgs-review
+    #nixpkgs-review
   ];
 }

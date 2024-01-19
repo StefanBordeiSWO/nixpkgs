@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", "<Esc>:NvimTreeToggle<CR>")
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>pv", "<Esc>:NvimTreeToggle<CR>")
 vim.keymap.set("n", "<leader>pb", "<Esc>:Telescope buffers<CR>")
 vim.keymap.set("n", "<leader>j", "<Esc>:bnext<CR>")
 vim.keymap.set("n", "<leader>k", "<Esc>:bprevious<CR>")
