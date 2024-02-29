@@ -3,7 +3,7 @@
 local nvim_lsp = require('lspconfig')
 local nvim_lsp_config = require('lspconfig.configs')
 
-local servers = { 'clangd', 'cmake', 'ruff_lsp', 'pyright', 'rust_analyzer', 'gopls' }
+local servers = { 'ruff_lsp', 'pyright', 'rust_analyzer', 'gopls', 'lua_ls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -135,6 +135,11 @@ require('lspconfig')['pyright'].setup {
     capabilities = capabilities
 }
 
+-- Lua
+require('lspconfig')['lua_ls'].setup {
+    capabilities = capabilities
+}
+
 require('lspconfig')['ruff_lsp'].setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -175,9 +180,9 @@ require('lspconfig')['gopls'].setup {
 }
 
 -- C
-require('lspconfig')['clangd'].setup {
-    capabilities = capabilities
-}
+-- require('lspconfig')['clangd'].setup {
+--     capabilities = capabilities
+-- }
 
 -- Rust
 require('lspconfig')['rust_analyzer'].setup {

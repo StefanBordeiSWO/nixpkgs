@@ -18,7 +18,7 @@ in
         { plugin = lazygit-nvim; }
         { plugin = lualine-nvim; }
         #{ plugin = nerdtree; }
-        { plugin = nvim-base16; }
+        { plugin = base16-nvim; }
         { plugin = nvim-lspconfig; }
         { plugin = nvim-tree-lua; }
         { plugin = nvim-treesitter; }

@@ -12,12 +12,12 @@ require("stefan.remap")
 --     command = [[%s/\s\+$//e]],
 -- })
 
-local group = vim.api.nvim_create_augroup("ruff", { clear = true })
-vim.api.nvim_create_autocmd("bufWritePost", {
-	pattern = "*.py",
-	command = "silent !ruff format %",
-	group = group,
-})
+-- local group = vim.api.nvim_create_augroup("ruff", { clear = true })
+-- vim.api.nvim_create_autocmd("bufWritePost", {
+-- 	pattern = "*.py",
+-- 	command = "silent !ruff format %",
+-- 	group = group,
+-- })
 
 -- nvim-tree setup
 -- disable netrw at the very start of your init.lua

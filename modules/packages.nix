@@ -21,6 +21,7 @@ in {
     file
     gnumake
     pyenv
+    gcc
 
     # Azure
     azure-cli
@@ -33,18 +34,15 @@ in {
     rustc
     cargo
 
-    # testing
-    #vagrant
-    #virtualbox
-
     # lsp
-    clang
-    clang-tools
+    #clang
+    #clang-tools
     nodejs
     nodePackages.npm
     nodePackages.pyright
     rust-analyzer
     gopls
+    lua-language-server
 
     # linters
     ruff
@@ -52,11 +50,5 @@ in {
     # telescope deps
     ripgrep
 
-    # password management
-    #lxqt.lxqt-sudo
-    #lxqt.lxqt-policykit
-
-    # nix-dev
-    #nixpkgs-review
   ];
 }
