@@ -3,7 +3,7 @@
 local nvim_lsp = require('lspconfig')
 local nvim_lsp_config = require('lspconfig.configs')
 
-local servers = { 'ruff_lsp', 'pyright', 'rust_analyzer', 'gopls', 'lua_ls' }
+local servers = { 'pyright', 'rust_analyzer', 'gopls', 'lua_ls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -17,6 +17,7 @@ end
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
+    disable = {"lua", "vimdoc"},
   },
   indent = {
     disable = { "python" },
@@ -89,7 +90,7 @@ cmp.setup({
       ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
+      -- { name = 'nvim_lsp' },
       -- { name = 'vsnip' }, -- For vsnip users.
       { name = 'luasnip' }, -- For luasnip users.
       -- { name = 'ultisnips' }, -- For ultisnips users.
@@ -140,39 +141,39 @@ require('lspconfig')['lua_ls'].setup {
     capabilities = capabilities
 }
 
-require('lspconfig')['ruff_lsp'].setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  init_options = {
-    settings = {
-      -- ...
-    },
-  },
-  commands = {
-    RuffAutofix = {
-      function()
-        vim.lsp.buf.execute_command {
-          command = 'ruff.applyAutofix',
-          arguments = {
-            { uri = vim.uri_from_bufnr(0) },
-          },
-        }
-      end,
-      description = 'Ruff: Fix all auto-fixable problems',
-    },
-    RuffOrganizeImports = {
-      function()
-        vim.lsp.buf.execute_command {
-          command = 'ruff.applyOrganizeImports',
-          arguments = {
-            { uri = vim.uri_from_bufnr(0) },
-          },
-        }
-      end,
-      description = 'Ruff: Format imports',
-    },
-  },
-}
+--require('lspconfig')['ruff_lsp'].setup {
+--  on_attach = on_attach,
+--  capabilities = capabilities,
+--  init_options = {
+--    settings = {
+--      -- ...
+--    },
+--  },
+--  commands = {
+--    RuffAutofix = {
+--      function()
+--        vim.lsp.buf.execute_command {
+--          command = 'ruff.applyAutofix',
+--          arguments = {
+--            { uri = vim.uri_from_bufnr(0) },
+--          },
+--        }
+--      end,
+--      description = 'Ruff: Fix all auto-fixable problems',
+--    },
+--    RuffOrganizeImports = {
+--      function()
+--        vim.lsp.buf.execute_command {
+--          command = 'ruff.applyOrganizeImports',
+--          arguments = {
+--            { uri = vim.uri_from_bufnr(0) },
+--          },
+--        }
+--      end,
+--      description = 'Ruff: Format imports',
+--    },
+--  },
+--}
 
 -- Go
 require('lspconfig')['gopls'].setup {

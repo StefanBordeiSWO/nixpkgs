@@ -17,7 +17,6 @@ in
         { plugin = fzf-vim; }
         { plugin = lazygit-nvim; }
         { plugin = lualine-nvim; }
-        #{ plugin = nerdtree; }
         { plugin = base16-nvim; }
         { plugin = nvim-lspconfig; }
         { plugin = nvim-tree-lua; }
@@ -30,15 +29,15 @@ in
         { plugin = cmp-path; }
         { plugin = cmp_luasnip; }
         { plugin = vim-nix; }
-        #{ plugin = vim-pandoc-syntax; }
-        #{ plugin = vim-pandoc; }
-        #{ plugin = vimtex; }
         { plugin = rust-tools-nvim; }
         { plugin = luasnip; }
         { plugin = telescope-nvim; }
         { plugin = plenary-nvim; }
         { plugin = vim-tmux-navigator; }
-        #{ plugin = packer-nvim; }
+        {
+          plugin = (nvim-treesitter.withPlugins
+            (ps: with ps; [ lua python rust go ]));
+        }
         # Debug
         { plugin = nvim-dap; }
         { plugin = nvim-dap-ui; }
