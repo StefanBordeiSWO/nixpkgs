@@ -141,39 +141,39 @@ require('lspconfig')['lua_ls'].setup {
     capabilities = capabilities
 }
 
---require('lspconfig')['ruff_lsp'].setup {
---  on_attach = on_attach,
---  capabilities = capabilities,
---  init_options = {
---    settings = {
---      -- ...
---    },
---  },
---  commands = {
---    RuffAutofix = {
---      function()
---        vim.lsp.buf.execute_command {
---          command = 'ruff.applyAutofix',
---          arguments = {
---            { uri = vim.uri_from_bufnr(0) },
---          },
---        }
---      end,
---      description = 'Ruff: Fix all auto-fixable problems',
---    },
---    RuffOrganizeImports = {
---      function()
---        vim.lsp.buf.execute_command {
---          command = 'ruff.applyOrganizeImports',
---          arguments = {
---            { uri = vim.uri_from_bufnr(0) },
---          },
---        }
---      end,
---      description = 'Ruff: Format imports',
---    },
---  },
---}
+require('lspconfig')['ruff_lsp'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  init_options = {
+    settings = {
+      -- ...
+    },
+  },
+  commands = {
+    RuffAutofix = {
+      function()
+        vim.lsp.buf.execute_command {
+          command = 'ruff.applyAutofix',
+          arguments = {
+            { uri = vim.uri_from_bufnr(0) },
+          },
+        }
+      end,
+      description = 'Ruff: Fix all auto-fixable problems',
+    },
+    RuffOrganizeImports = {
+      function()
+        vim.lsp.buf.execute_command {
+          command = 'ruff.applyOrganizeImports',
+          arguments = {
+            { uri = vim.uri_from_bufnr(0) },
+          },
+        }
+      end,
+      description = 'Ruff: Format imports',
+    },
+  },
+}
 
 -- Go
 require('lspconfig')['gopls'].setup {
