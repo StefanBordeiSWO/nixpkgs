@@ -38,7 +38,7 @@
         #set-environment -g COLORTERM "truecolor"
 
         # Mouse works as expected
-        #set-option -g mouse on
+        set -g mouse on
 
         # easy-to-remember split pane commands
         bind ` split-window -h -c "#{pane_current_path}"
