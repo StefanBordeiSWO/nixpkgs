@@ -18,7 +18,15 @@
     home-manager.enable = true;
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
-    #powerline-go.enable = true;
+    #powerline-go = {
+    #  enable = true;
+    #  newline = true;
+    #  extraUpdatePS1 = ''
+    #    if [[ -n "$IN_NIX_SHELL" ]]; then
+    #      export PS1="$PS1(nix-shell): "
+    #    fi
+    #  '';
+    #};
     tmux = {
       enable = true;
       baseIndex = 1;
@@ -44,6 +52,11 @@
         EDITOR = "nvim";
         TERM = "xterm-256color";
       };
+      bashrcExtra = ''
+        if [[ -n "$IN_NIX_SHELL" ]]; then
+          export PS1="$PS1(nix-shell): "
+        fi
+      '';
     };
     git = {
       enable = true;

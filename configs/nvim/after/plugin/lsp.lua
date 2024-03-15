@@ -1,7 +1,6 @@
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local nvim_lsp = require('lspconfig')
-local nvim_lsp_config = require('lspconfig.configs')
 
 local servers = { 'pyright', 'rust_analyzer', 'gopls', 'lua_ls' }
 for _, lsp in ipairs(servers) do
@@ -90,7 +89,7 @@ cmp.setup({
       ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
-      -- { name = 'nvim_lsp' },
+      { name = 'nvim_lsp' },
       -- { name = 'vsnip' }, -- For vsnip users.
       { name = 'luasnip' }, -- For luasnip users.
       -- { name = 'ultisnips' }, -- For ultisnips users.
@@ -180,39 +179,29 @@ require('lspconfig')['gopls'].setup {
     capabilities = capabilities
 }
 
--- C
--- require('lspconfig')['clangd'].setup {
---     capabilities = capabilities
--- }
-
 -- Rust
+local rt = require("rust-tools")
+
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
 require('lspconfig')['rust_analyzer'].setup {
     capabilities = capabilities,
-    settings = {
-        ["rust-analyzer"] = {
-            imports = {
-                granularity = {
-                    group = "module",
-                },
-                prefix = "self",
-            },
-            cargo = {
-                buildScripts = {
-                    enable = true,
-                },
-            },
-            procMacro = {
-                enable = true
-            },
-        }
-    }
+    on_attach = on_attach,
 }
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
---vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
---vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
---vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
---vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer

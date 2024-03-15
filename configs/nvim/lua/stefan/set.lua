@@ -1,4 +1,5 @@
-vim.cmd("colorscheme base16-rose-pine")
+-- vim.cmd("colorscheme base16-rose-pine")
+vim.cmd("colorscheme base16-tomorrow-night")
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
