@@ -179,9 +179,45 @@ require('lspconfig')['ruff_lsp'].setup {
 }
 
 -- Go
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+end
 require('lspconfig')['gopls'].setup {
-    capabilities = capabilities
+    capabilities = capabilities,
+    cmd = {'gopls'},
+    filetypes = { "go", "gomod", "gowork", "gotmpl" },
+    root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
+    single_file_support = true,
+    on_attach = on_attach,
 }
+
+-- formatting
+local null_ls = require("null-ls")
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+null_ls.setup({
+    filetypes = { "go", "gomod", "gowork", "gotmpl" },
+    root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
+    sources = {
+        null_ls.builtins.formatting.gofmt,
+        null_ls.builtins.formatting.goimports,
+    },
+    -- you can reuse a shared lspconfig on_attach callback here
+    on_attach = function(client, bufnr)
+        if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function()
+                    -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+                    -- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
+                    vim.lsp.buf.format({ bufnr = bufnr })
+                end,
+            })
+        end
+    end,
+})
 
 -- Rust
 local rt = require("rust-tools")

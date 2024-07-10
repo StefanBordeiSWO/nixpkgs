@@ -27,6 +27,7 @@
 
         modules = [
           ./modules/neovim.nix
+          ./modules/tmux.nix
           ./modules/packages.nix
           ./home.nix
         ];

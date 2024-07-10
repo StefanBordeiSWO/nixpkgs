@@ -44,6 +44,9 @@ in
         { plugin = nvim-dap-virtual-text; }
         { plugin = nvim-dap-python; }
         { plugin = nvim-dap-go; }
+        { plugin = vim-fugitive; }
+        # Formatting
+        { plugin = null-ls-nvim; }
       ];
     }; # neovim
     xdg.configFile."nvim/lua".source = config.lib.file.mkOutOfStoreSymlink "${nixConfigDir}/configs/nvim/lua";
