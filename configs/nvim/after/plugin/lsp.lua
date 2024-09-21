@@ -6,9 +6,6 @@ local servers = { 'pyright', 'rust_analyzer', 'gopls', 'lua_ls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
-    --flags = {
-    --  debounce_text_changes = 150,
-    --}
   }
 end
 
@@ -26,11 +23,29 @@ require'nvim-treesitter.configs'.setup {
 vim.opt.runtimepath:append("~/.config/nvim/treesitter/parsers")
 
 require'lualine'.setup()
---require'nvim-tree'.setup()
 require('gitsigns').setup()
 require('toggleterm').setup()
 require('dapui').setup()
-require('dap-python').setup()
+require('dap-python').setup('python')
+table.insert(require'dap'.configurations.python, {
+    name = 'Attach remote (with path mapping)',
+    type = 'debugpy',
+    request = 'attach',
+    connect = function()
+        local host = vim.fn.input('Host [0.0.0.0]: ')
+        host = host ~= '' and host or '0.0.0.0'
+        local port = tonumber(vim.fn.input('Port [5678]: ')) or 5678
+        return { host = host, port = port }
+    end,
+    pathMappings = function()
+        local cwd = vim.fn.getcwd()
+        local local_path = vim.fn.input('Local path mapping [' .. cwd .. ']: ')
+        local_path = local_path ~= '' and local_path or cwd
+        local remote_path = vim.fn.input('Remote path mapping [.]: ')
+        remote_path = remote_path ~= '' and remote_path or '.'
+        return { { localRoot = local_path, remoteRoot = remote_path }, }
+    end
+})
 
 -- Use <Tab> and <S-Tab> to navigate through popup menu
 vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
@@ -44,13 +59,13 @@ vim.o.shortmess = vim.o.shortmess .. "c"
 
 -- Chain completion list
 vim.g.completion_chain_complete_list = {
-            default = {
-              default = {
-                  { complete_items = { 'lsp', 'snippet' }},
-                  { mode = '<c-p>'},
-                  { mode = '<c-n>'}},
-              comment = {},
-              string = { { complete_items = { 'path' }} }}}
+    default = {
+      default = {
+          { complete_items = { 'lsp', 'snippet' }},
+          { mode = '<c-p>'},
+          { mode = '<c-n>'}},
+      comment = {},
+      string = { { complete_items = { 'path' }} }}}
 
 -- Latexmk configuration
 vim.g.vimtex_compiler_latexmk = {
@@ -69,12 +84,8 @@ local cmp = require'cmp'
 
 cmp.setup({
     snippet = {
-      -- REQUIRED - you must specify a snippet engine
       expand = function(args)
-        --vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
         require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
       end,
     },
     window = {
@@ -82,11 +93,6 @@ cmp.setup({
        documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-      --['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      --['<C-f>'] = cmp.mapping.scroll_docs(4),
-      --['<C-Space>'] = cmp.mapping.complete(),
-      --['<C-e>'] = cmp.mapping.abort(),
-      --['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       ['<C-y>'] = cmp.mapping.confirm({ select = true }),
       ['<C-n>'] = cmp.mapping.select_next_item(),
       ['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -94,10 +100,7 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      -- { name = 'vsnip' }, -- For vsnip users.
       { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
     }, {
       { name = 'buffer' },
     })
@@ -134,6 +137,7 @@ cmp.setup.cmdline(':', {
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+
 -- Py
 require('lspconfig')['pyright'].setup {
     capabilities = capabilities
@@ -144,45 +148,12 @@ require('lspconfig')['lua_ls'].setup {
     capabilities = capabilities
 }
 
-require('lspconfig')['ruff_lsp'].setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  init_options = {
-    settings = {
-      -- ...
-    },
-  },
-  commands = {
-    RuffAutofix = {
-      function()
-        vim.lsp.buf.execute_command {
-          command = 'ruff.applyAutofix',
-          arguments = {
-            { uri = vim.uri_from_bufnr(0) },
-          },
-        }
-      end,
-      description = 'Ruff: Fix all auto-fixable problems',
-    },
-    RuffOrganizeImports = {
-      function()
-        vim.lsp.buf.execute_command {
-          command = 'ruff.applyOrganizeImports',
-          arguments = {
-            { uri = vim.uri_from_bufnr(0) },
-          },
-        }
-      end,
-      description = 'Ruff: Format imports',
-    },
-  },
-}
-
 -- Go
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
+
 require('lspconfig')['gopls'].setup {
     capabilities = capabilities,
     cmd = {'gopls'},
@@ -210,8 +181,6 @@ null_ls.setup({
                 group = augroup,
                 buffer = bufnr,
                 callback = function()
-                    -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-                    -- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
                     vim.lsp.buf.format({ bufnr = bufnr })
                 end,
             })
@@ -221,7 +190,6 @@ null_ls.setup({
 
 -- Rust
 local rt = require("rust-tools")
-
 rt.setup({
   server = {
     on_attach = function(_, bufnr)
@@ -232,10 +200,12 @@ rt.setup({
     end,
   },
 })
+
 require('lspconfig')['rust_analyzer'].setup {
     capabilities = capabilities,
     on_attach = on_attach,
 }
+
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)

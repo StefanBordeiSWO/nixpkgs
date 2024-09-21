@@ -22,6 +22,7 @@ in {
     gnumake
     pyenv
     gcc
+    wget
 
     # Azure
     azure-cli
@@ -49,6 +50,5 @@ in {
 
     # telescope deps
     ripgrep
-
   ];
 }

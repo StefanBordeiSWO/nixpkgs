@@ -1,11 +1,16 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>pb", "<Esc>:Telescope buffers<CR>")
-vim.keymap.set("n", "<leader>j", "<Esc>:bnext<CR>")
-vim.keymap.set("n", "<leader>k", "<Esc>:bprevious<CR>")
+
+-- Navigating
+require('harpoon').setup()
+vim.keymap.set("n", "<leader>a", "<Esc>:lua require('harpoon.mark').add_file()<CR>")
+vim.keymap.set("n", "<leader>hs", "<Esc>:lua require('harpoon.ui').toggle_quick_menu()<CR>")
+
+vim.keymap.set("n", "<leader>j", "<Esc>:lua require('harpoon.ui').nav_next()<CR>")
+vim.keymap.set("n", "<leader>k", "<Esc>:lua require('harpoon.ui').nav_prev()<CR>")
 
 -- Debugger
-
 vim.keymap.set("n", "<leader>dt", "<Esc>:lua require'dapui'.toggle()<CR>")
 vim.keymap.set("n", "<leader>db", "<Esc>:lua require'dap'.toggle_breakpoint()<CR>")
 vim.keymap.set("n", "<leader>dc", "<Esc>:lua require'dap'.continue()<CR>")

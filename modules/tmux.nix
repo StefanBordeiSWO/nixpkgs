@@ -10,6 +10,7 @@ in
       plugins = with pkgs.tmuxPlugins; [
         { plugin = vim-tmux-navigator; }
         { plugin = sensible; }
+        { plugin = resurrect; }
         { plugin = dracula; }
         {
 			plugin = dracula;

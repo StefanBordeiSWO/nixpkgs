@@ -33,6 +33,7 @@ in
         { plugin = luasnip; }
         { plugin = telescope-nvim; }
         { plugin = plenary-nvim; }
+        { plugin = harpoon; }
         { plugin = vim-tmux-navigator; }
         {
           plugin = (nvim-treesitter.withPlugins
