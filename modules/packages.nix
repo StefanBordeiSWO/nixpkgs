@@ -30,6 +30,7 @@ in {
 
     # k8s
     kubectl
+    kind
 
     # Rust
     rustc

@@ -18,15 +18,18 @@
     home-manager.enable = true;
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
-    #powerline-go = {
-    #  enable = true;
-    #  newline = true;
-    #  extraUpdatePS1 = ''
-    #    if [[ -n "$IN_NIX_SHELL" ]]; then
-    #      export PS1="$PS1(nix-shell): "
-    #    fi
-    #  '';
-    #};
+    powerline-go = {
+      enable = true;
+      pathAliases = { 
+        "\\~/src/zae" = "zae"; 
+      };
+     # newline = true;
+      extraUpdatePS1 = ''
+        if [[ -n "$IN_NIX_SHELL" ]]; then
+          export PS1="$PS1('📦'$name): "
+        fi
+      '';
+    };
     tmux = {
       enable = true;
       baseIndex = 1;
