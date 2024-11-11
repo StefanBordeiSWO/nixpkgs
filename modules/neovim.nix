@@ -1,6 +1,6 @@
 { config, pkgs, libs, ... }:
 let
-  nixConfigDir = "${config.home.homeDirectory}/.config/nixpkgs";
+  nixConfigDir = "${config.home.homeDirectory}/.config/home-manager";
 in
 {
     programs.neovim = {
@@ -48,6 +48,7 @@ in
         { plugin = vim-fugitive; }
         # Formatting
         { plugin = null-ls-nvim; }
+        { plugin = copilot-vim; }
       ];
     }; # neovim
     xdg.configFile."nvim/lua".source = config.lib.file.mkOutOfStoreSymlink "${nixConfigDir}/configs/nvim/lua";

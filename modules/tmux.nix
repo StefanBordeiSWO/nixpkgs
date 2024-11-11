@@ -1,6 +1,6 @@
 { config, pkgs, libs, ... }:
 let
-  nixConfigDir = "${config.home.homeDirectory}/.config/nixpkgs";
+  nixConfigDir = "${config.home.homeDirectory}/.config/home-manager";
 in
 {
     programs.tmux = {

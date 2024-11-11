@@ -2,7 +2,7 @@
 -- after the language server attaches to the current buffer
 local nvim_lsp = require('lspconfig')
 
-local servers = { 'pyright', 'rust_analyzer', 'gopls', 'lua_ls' }
+local servers = { 'pyright', 'rust_analyzer', 'gopls', 'lua_ls', 'terraformls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -97,7 +97,12 @@ cmp.setup({
       ['<C-n>'] = cmp.mapping.select_next_item(),
       ['<C-p>'] = cmp.mapping.select_prev_item(),
       ['<C-Space>'] = cmp.mapping.complete(),
+      -- disable completion with tab
+      -- this helps with copilot setup
+      ['<Tab>'] = nil,
+      ['<S-Tab>'] = nil,
     }),
+
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'luasnip' }, -- For luasnip users.
@@ -147,6 +152,17 @@ require('lspconfig')['pyright'].setup {
 require('lspconfig')['lua_ls'].setup {
     capabilities = capabilities
 }
+
+-- Terraform
+require('lspconfig')['terraformls'].setup {
+    capabilities = capabilities
+}
+vim.api.nvim_create_autocmd({"BufWritePre"}, {
+  pattern = {"*.tf", "*.tfvars"},
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})
 
 -- Go
 local on_attach = function(client, bufnr)

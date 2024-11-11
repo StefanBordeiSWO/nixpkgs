@@ -31,6 +31,7 @@ in {
     # k8s
     kubectl
     kind
+    kompose
 
     # Rust
     rustc
@@ -45,6 +46,7 @@ in {
     rust-analyzer
     gopls
     lua-language-server
+    terraform-lsp
 
     # linters
     ruff
