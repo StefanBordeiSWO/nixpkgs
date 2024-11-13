@@ -23,3 +23,7 @@ vim.keymap.set("n", "<C-j>", "<Esc>:TmuxNavigateDown<CR>")
 vim.keymap.set("n", "<C-k>", "<Esc>:TmuxNavigateUp<CR>")
 vim.keymap.set("n", "<C-h>", "<Esc>:TmuxNavigateLeft<CR>")
 vim.keymap.set("n", "<C-l>", "<Esc>:TmuxNavigateRight<CR>")
+
+-- Copilot
+vim.keymap.set("n", "<leader>ce", "<Esc>:Copilot enable<CR>")
+vim.keymap.set("n", "<leader>cd", "<Esc>:Copilot disable<CR>")

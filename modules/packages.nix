@@ -42,7 +42,7 @@ in {
     #clang-tools
     nodejs
     nodePackages.npm
-    nodePackages.pyright
+    pyright
     rust-analyzer
     gopls
     lua-language-server

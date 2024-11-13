@@ -90,7 +90,7 @@
 
   services = {
     gnome-keyring.enable = true;
-    picom.enable= true;
+    #picom.enable= true;
   };
 
   xdg.enable = true;
