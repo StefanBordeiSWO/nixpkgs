@@ -2,7 +2,7 @@
 -- after the language server attaches to the current buffer
 local nvim_lsp = require('lspconfig')
 
-local servers = { 'pyright', 'rust_analyzer', 'gopls', 'lua_ls', 'terraformls' }
+local servers = { 'pyright', 'rust_analyzer', 'gopls', 'lua_ls', 'terraformls', 'nixd' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -179,15 +179,29 @@ require('lspconfig')['gopls'].setup {
     on_attach = on_attach,
 }
 
+-- Nix
+require('lspconfig')['nixd'].setup {
+    capabilities = capabilities,
+    settings = {
+        nixpkgs = {
+            expr = "import <nixpkgs> {}";
+        },
+        formatting = {
+            command = { "nixfmt" },
+        },
+    },
+}
+
 -- formatting
 local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
-    filetypes = { "go", "gomod", "gowork", "gotmpl" },
+    filetypes = { "go", "gomod", "gowork", "gotmpl", "nix" },
     root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
     sources = {
         null_ls.builtins.formatting.gofmt,
         null_ls.builtins.formatting.goimports,
+        null_ls.builtins.formatting.nixfmt,
     },
     -- you can reuse a shared lspconfig on_attach callback here
     on_attach = function(client, bufnr)

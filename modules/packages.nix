@@ -12,7 +12,7 @@ in {
     neovide
     neovim-qt
     nix-info
-    nixfmt
+    nixfmt-rfc-style
     xarchiver
     xdg-utils
     zenmonitor
@@ -47,6 +47,7 @@ in {
     gopls
     lua-language-server
     terraform-lsp
+    nixd
 
     # linters
     ruff
