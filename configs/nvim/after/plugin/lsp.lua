@@ -196,12 +196,13 @@ require('lspconfig')['nixd'].setup {
 local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls.setup({
-    filetypes = { "go", "gomod", "gowork", "gotmpl", "nix" },
+    filetypes = { "go", "gomod", "gowork", "gotmpl", "nix" }, --, "yaml", "yml" },
     root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
     sources = {
         null_ls.builtins.formatting.gofmt,
         null_ls.builtins.formatting.goimports,
         null_ls.builtins.formatting.nixfmt,
+        --null_ls.builtins.diagnostics.yamllint,
     },
     -- you can reuse a shared lspconfig on_attach callback here
     on_attach = function(client, bufnr)

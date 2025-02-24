@@ -1,9 +1,26 @@
-{ config, pkgs, libs, ... }:
+{
+  config,
+  pkgs,
+  libs,
+  ...
+}:
 let
-in {
+in
+{
   home.packages = with pkgs; [
     # utilities
-    (python3.withPackages(p: with p; [ pip python-lsp-server debugpy ruff-lsp requests numpy ]))
+    (python3.withPackages (
+      p: with p; [
+        pip
+        python-lsp-server
+        debugpy
+        ruff-lsp
+        requests
+        numpy
+        setuptools
+        wheel
+      ]
+    ))
     htop
     glib # for gsettings
     gsimplecal
@@ -51,6 +68,7 @@ in {
 
     # linters
     ruff
+    yamllint
 
     # telescope deps
     ripgrep
