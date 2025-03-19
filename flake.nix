@@ -22,7 +22,7 @@
         };
       };
     in {
-      homeConfigurations.stefanB = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.stefan = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         modules = [
@@ -33,7 +33,7 @@
         ];
       };
 
-      stefanB = self.homeConfigurations.stefanB.activationPackage;
-      defaultPackage.${system} = self.stefanB;
+      stefan = self.homeConfigurations.stefan.activationPackage;
+      defaultPackage.${system} = self.stefan;
     };
 }

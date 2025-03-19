@@ -15,27 +15,15 @@ in
         python-lsp-server
         debugpy
         ruff-lsp
-        requests
-        numpy
         setuptools
         wheel
       ]
     ))
-    htop
-    glib # for gsettings
-    gsimplecal
-    keyd
     lazygit
     neovide
     neovim-qt
     nix-info
     nixfmt-rfc-style
-    xarchiver
-    xdg-utils
-    zenmonitor
-    unzip
-    iconv
-    file
     gnumake
     pyenv
     gcc
@@ -47,12 +35,6 @@ in
 
     # k8s
     kubectl
-    kind
-    kompose
-
-    # Rust
-    rustc
-    cargo
 
     # lsp
     #clang

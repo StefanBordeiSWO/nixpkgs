@@ -1,8 +1,8 @@
 { config, pkgs, nur, ... }: {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "stefanB";
-  home.homeDirectory = "/home/stefanB";
+  home.username = "stefan";
+  home.homeDirectory = "/home/stefan";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -12,7 +12,7 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "23.05";
+  home.stateVersion = "24.11"; # Please read the comment before changing.
 
   programs = {
     home-manager.enable = true;
@@ -33,7 +33,7 @@
     tmux = {
       enable = true;
       baseIndex = 1;
-      secureSocket = false; # WSL2 compat
+      #secureSocket = false; # WSL2 compat
       extraConfig = ''
         set -g default-terminal "xterm-256color"
         set -ga terminal-overrides ",*256col*:Tc"
@@ -78,7 +78,7 @@
     gh.enable = true;
     gitui.enable = true;
     lazygit.enable = true;
-    #neovim.enable = true;
+    neovim.enable = true;
     go.enable = true;
   };
 
@@ -89,9 +89,9 @@
   };
 
   services = {
-    gnome-keyring.enable = true;
+    #gnome-keyring.enable = true;
     #picom.enable= true;
   };
 
-  xdg.enable = true;
+  #xdg.enable = true;
 }
