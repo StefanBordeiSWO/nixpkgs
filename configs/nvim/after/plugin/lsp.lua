@@ -202,12 +202,9 @@ require("conform").setup({
   formatters_by_ft = {
     lua = { "stylua" },
     kotlin = { "ktlint" },
-    -- Conform will run multiple formatters sequentially
-    python = { "isort", "black" },
-    -- You can customize some of the format options for the filetype (:help conform.format)
-    rust = { "rustfmt", lsp_format = "fallback" },
-    -- Conform will run the first available formatter
-    javascript = { "prettierd", "prettier", stop_after_first = true },
+    --go = { "gofmt" },
+    --python = { "isort", "black" },
+    --rust = { "rustfmt", lsp_format = "fallback" },
   },
 })
 
@@ -219,6 +216,7 @@ vim.keymap.set({ "n", "v" }, "<leader>l", function()
     })
 end, { desc = "Format file or range (in visual mode)" })
 
+-- Format on save with conform
 --vim.api.nvim_create_autocmd("BufWritePre", {
 --  pattern = "*",
 --  callback = function(args)
@@ -227,33 +225,30 @@ end, { desc = "Format file or range (in visual mode)" })
 --})
 
 -- null-ls
---local null_ls = require("null-ls")
---local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
---null_ls.setup({
---    filetypes = { "go", "gomod", "gowork", "gotmpl", "nix" }, --, "yaml", "yml" },
---    root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
---    sources = {
---        null_ls.builtins.formatting.gofmt,
---        null_ls.builtins.formatting.goimports,
---        null_ls.builtins.formatting.nixfmt,
---        --null_ls.builtins.formatting.ktlint,
---        --null_ls.builtins.diagnostics.ktlint,
---        --null_ls.builtins.diagnostics.yamllint,
---    },
---    -- you can reuse a shared lspconfig on_attach callback here
---    on_attach = function(client, bufnr)
---        if client.supports_method("textDocument/formatting") then
---            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
---            vim.api.nvim_create_autocmd("BufWritePre", {
---                group = augroup,
---                buffer = bufnr,
---                callback = function()
---                    vim.lsp.buf.format({ bufnr = bufnr })
---                end,
---            })
---        end
---    end,
---})
+local null_ls = require("null-ls")
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+null_ls.setup({
+    filetypes = { "go", "gomod", "gowork", "gotmpl", "nix" },
+    root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
+    sources = {
+        null_ls.builtins.formatting.gofmt,
+        null_ls.builtins.formatting.goimports,
+        null_ls.builtins.formatting.nixfmt,
+    },
+    -- you can reuse a shared lspconfig on_attach callback here
+    on_attach = function(client, bufnr)
+        if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function()
+                    vim.lsp.buf.format({ bufnr = bufnr })
+                end,
+            })
+        end
+    end,
+})
 
 -- Rust
 local rt = require("rust-tools")
