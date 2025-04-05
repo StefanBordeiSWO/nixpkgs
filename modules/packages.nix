@@ -33,6 +33,10 @@ in
     azure-cli
     ansible
 
+    # AWS
+    awscli2
+    awsume
+
     # k8s
     kubectl
 
@@ -47,6 +51,8 @@ in
     lua-language-server
     terraform-lsp
     nixd
+    kotlin-language-server
+    ktlint
 
     # linters
     ruff

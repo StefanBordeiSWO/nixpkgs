@@ -1,4 +1,10 @@
-{ config, pkgs, nur, ... }: {
+{
+  config,
+  pkgs,
+  nur,
+  ...
+}:
+{
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "stefan";
@@ -20,10 +26,10 @@
     direnv.nix-direnv.enable = true;
     powerline-go = {
       enable = true;
-      pathAliases = { 
-        "\\~/src/zae" = "zae"; 
+      pathAliases = {
+        "\\~/src/zae/" = "zae";
       };
-     # newline = true;
+      newline = true;
       extraUpdatePS1 = ''
         if [[ -n "$IN_NIX_SHELL" ]]; then
           export PS1="$PS1('📦'$name): "
