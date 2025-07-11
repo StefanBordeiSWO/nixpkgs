@@ -14,7 +14,6 @@ in
         pip
         python-lsp-server
         debugpy
-        ruff-lsp
         setuptools
         wheel
       ]
@@ -60,5 +59,8 @@ in
 
     # telescope deps
     ripgrep
+
+    #FML
+    jetbrains.idea-community-bin
   ];
 }
