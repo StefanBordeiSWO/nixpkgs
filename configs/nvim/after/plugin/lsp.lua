@@ -225,30 +225,30 @@ end, { desc = "Format file or range (in visual mode)" })
 --})
 
 -- null-ls
-local null_ls = require("null-ls")
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-null_ls.setup({
-    filetypes = { "go", "gomod", "gowork", "gotmpl", "nix" },
-    root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
-    sources = {
-        null_ls.builtins.formatting.gofmt,
-        null_ls.builtins.formatting.goimports,
-        null_ls.builtins.formatting.nixfmt,
-    },
-    -- you can reuse a shared lspconfig on_attach callback here
-    on_attach = function(client, bufnr)
-        if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = bufnr,
-                callback = function()
-                    vim.lsp.buf.format({ bufnr = bufnr })
-                end,
-            })
-        end
-    end,
-})
+-- local null_ls = require("null-ls")
+-- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+-- null_ls.setup({
+--     filetypes = { "go", "gomod", "gowork", "gotmpl", "nix" },
+--     root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git"),
+--     sources = {
+--         null_ls.builtins.formatting.gofmt,
+--         null_ls.builtins.formatting.goimports,
+--         null_ls.builtins.formatting.nixfmt,
+--     },
+--     -- you can reuse a shared lspconfig on_attach callback here
+--     on_attach = function(client, bufnr)
+--         if client.supports_method("textDocument/formatting") then
+--             vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+--             vim.api.nvim_create_autocmd("BufWritePre", {
+--                 group = augroup,
+--                 buffer = bufnr,
+--                 callback = function()
+--                     vim.lsp.buf.format({ bufnr = bufnr })
+--                 end,
+--             })
+--         end
+--     end,
+-- })
 
 -- Rust
 local rt = require("rust-tools")
