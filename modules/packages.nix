@@ -50,8 +50,8 @@ in
     lua-language-server
     terraform-lsp
     nixd
-    kotlin-language-server
-    ktlint
+    ktfmt
+    stylua
 
     # linters
     ruff
