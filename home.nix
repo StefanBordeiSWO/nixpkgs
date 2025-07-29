@@ -32,7 +32,7 @@
       newline = true;
       extraUpdatePS1 = ''
         if [[ -n "$IN_NIX_SHELL" ]]; then
-          export PS1="$PS1('📦'$name): "
+          export PS1="$PS1( $name): "
         fi
       '';
     };
